@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+#You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+echo -e "\nConvertComic By vitforlinux.wordpress.com\n\nIf not works please install img2pdf unrar unzip\n"
+
+if [ $# -eq 0 ]
+then
+	echo "Please state the cbr/cbz files you want to convert to pdf"
+else
+
+	for i in "$@"
+	do
+		file=$i
+		filetype=${i: -3}
+		filename=${file%.*}
+		pdffile="$filename.pdf"
+		temp="`mktemp -d`"
+		if [[ "$filetype" == "cbr" ]] || [[ "$filetype" == "CBR" ]]
+		then
+			echo -e "\nExtract .cbr with RAR\n"
+			unrar -inul e "$file" "$temp"
+		elif [[ "$filetype" == "cbz" ]] || [[ "$filetype" == "CBZ" ]]
+		then
+			echo -e "\nExtract .cbz with ZIP\n"
+			unzip -q -j "$file" -d "$temp"
+		else echo -e "\nFile format not supported only .cbz and .cbr\n" && rm -rf "$temp"
+		fi
+			echo -e "\nMerge in PDF\n"
+			if [ -d "$temp" ]; then
+				rm -f "$temp"/*.xml
+				if [[ ! -z "$( ls -A "$temp" )" ]]; then
+					img2pdf -o "$pdffile" "$temp"/*.*
+				fi
+				rm -rf "$temp"
+			fi
+			
+	done
+fi
+exit 0
