@@ -1,7 +1,8 @@
 # convertcomic
-A modified version of comicconvert
+A modified version of the original comicconvert
 
 https://github.com/rumesh986/comicconvert/blob/master/comicconvert
+
 (ENGLISH)
 Maybe it does fewer things, but the purpose of having PDFs from CBRs or CBZs achieves it.
 
