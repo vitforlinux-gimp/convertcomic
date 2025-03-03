@@ -11,7 +11,7 @@ Above all, it uses the /tmp folder which makes it faster.
 Use five dependencies: unzip, unrar, p7zip-full, tar and img2pdf
 
 (ITALIAN)
-Forse fa meno cose, ma lo scopo di avere dei PDF a partire da dei CBR CBZ, CBT e CB7 lo ottiene.
+Forse fa meno cose, ma lo scopo di avere dei PDF a partire da dei CBR, CBZ, CBT e CB7 lo ottiene.
 
 Soprattutto usa la cartella /tmp che lo rende più veloce.
 
