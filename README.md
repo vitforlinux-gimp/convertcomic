@@ -4,15 +4,15 @@ A modified version of the original comicconvert
 https://github.com/rumesh986/comicconvert/blob/master/comicconvert
 
 (ENGLISH)
-Maybe it does fewer things, but the purpose of having PDFs from CBRs or CBZs achieves it.
+Maybe it does fewer things, but the purpose of having PDFs from CBR, CBZ, CBT and CB7 achieves it.
 
 Above all, it uses the /tmp folder which makes it faster.
 
-Use three dependencies: unzip, unrar and img2pdf
+Use five dependencies: unzip, unrar, p7zip-full, tar and img2pdf
 
 (ITALIAN)
-Forse fa meno cose, ma lo scopo di avere dei PDF a partire da dei CBR o CBZ lo ottiene.
+Forse fa meno cose, ma lo scopo di avere dei PDF a partire da dei CBR CBZ, CBT e CB7 lo ottiene.
 
 Soprattutto usa la cartella /tmp che lo rende più veloce.
 
-Usa tre dipendenze unzip, unrar e img2pdf.
+Usa cinque dipendenze unzip, unrar, p7zip-full, tar e img2pdf.
