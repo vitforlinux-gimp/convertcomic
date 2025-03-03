@@ -5,7 +5,7 @@
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-echo -e "\nConvertComic By vitforlinux.wordpress.com\n\nIf not works please install img2pdf unrar unzip\n"
+echo -e "\nConvertComic By vitforlinux.wordpress.com\n\nIf not works please install img2pdf unrar unzip tar 7zip-full\n"
 
 if [ $# -eq 0 ]
 then
@@ -23,6 +23,14 @@ else
 		then
 			echo -e "\nExtract .cbr with RAR\n"
 			unrar -inul e "$file" "$temp"
+		elif [[ "$filetype" == "cbt" ]] || [[ "$filetype" == "CBT" ]]
+		then
+			echo -e "\nExtract .cbt with TAR\n"
+			tar -xf "$file" --transform='s/.*\///' -C "$temp"
+		elif [[ "$filetype" == "cb7" ]] || [[ "$filetype" == "CB7" ]]
+		then
+			echo -e "\nExtract .cb7 with 7zip\n"
+			7za e "$file" -o"$temp"
 		elif [[ "$filetype" == "cbz" ]] || [[ "$filetype" == "CBZ" ]]
 		then
 			echo -e "\nExtract .cbz with ZIP\n"
