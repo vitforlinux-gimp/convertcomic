@@ -31,7 +31,7 @@ else
 		elif [ -d "$file" ]
 		then
 			echo -e "\nCopy files in temporary folder\n"
-			find "$file" -type f -execdir cp "{}" "$temp" ";"
+			find "$file" -type f \( -iname "*.jpg" -or -iname "*.jpeg" -or -iname "*.png" -or -iname "*.jpg"  -or -iname "*.jpeg" -or -iname "*.tif" -or -iname "*.tiff" \) -execdir cp "{}" "$temp" ";"
 		elif [[ "$filetype" == "cb7" ]] || [[ "$filetype" == "CB7" ]]
 		then
 			echo -e "\nExtract .cb7 with 7zip\n"
