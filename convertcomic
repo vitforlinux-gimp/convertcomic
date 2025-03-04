@@ -19,6 +19,7 @@ else
 		filename=${file%.*}
 		pdffile="$filename.pdf"
 		temp="`mktemp -d`"
+		echo "$file"
 		if [[ "$filetype" == "cbr" ]] || [[ "$filetype" == "CBR" ]]
 		then
 			echo -e "\nExtract .cbr with RAR\n"
@@ -27,6 +28,10 @@ else
 		then
 			echo -e "\nExtract .cbt with TAR\n"
 			tar -xf "$file" --transform='s/.*\///' -C "$temp"
+		elif [ -d "$file" ]
+		then
+			echo -e "\nCopy files in temporary folder\n"
+			find "$file" -type f -execdir cp "{}" "$temp" ";"
 		elif [[ "$filetype" == "cb7" ]] || [[ "$filetype" == "CB7" ]]
 		then
 			echo -e "\nExtract .cb7 with 7zip\n"
@@ -43,7 +48,7 @@ else
 				if [[ ! -z "$( ls -A "$temp" )" ]]; then
 					img2pdf -o "$pdffile" "$temp"/*.*
 				fi
-				rm -rf "$temp"
+				#rm -rf "$temp"
 			fi
 			
 	done
