@@ -31,7 +31,7 @@ else
 		elif [ -d "$file" ]
 		then
 			echo -e "\nCopy files in temporary folder\n"
-			find "$file" -type f \( -iname "*.jpg" -or -iname "*.jpeg" -or -iname "*.png" -or -iname "*.jpg"  -or -iname "*.jpeg" -or -iname "*.tif" -or -iname "*.tiff" \) -execdir cp "{}" "$temp" ";"
+			find "$file" -type f \( -iname "*.jpg" -or -iname "*.jpeg" -or -iname "*.png" -or -iname "*.jpg" -or -iname "*.tif" -or -iname "*.tiff" \) -execdir cp "{}" "$temp" ";"
 		elif [[ "$filetype" == "cb7" ]] || [[ "$filetype" == "CB7" ]]
 		then
 			echo -e "\nExtract .cb7 with 7zip\n"
@@ -40,7 +40,7 @@ else
 		then
 			echo -e "\nExtract .cbz with ZIP\n"
 			unzip -q -j "$file" -d "$temp"
-		else echo -e "\nFile format not supported only .cbz and .cbr\n" && rm -rf "$temp"
+		else echo -e "\nFile format not supported only .cbz .cbr .cbt cb7 and images folder\n" && rm -rf "$temp"
 		fi
 			echo -e "\nMerge in PDF\n"
 			if [ -d "$temp" ]; then
@@ -48,7 +48,7 @@ else
 				if [[ ! -z "$( ls -A "$temp" )" ]]; then
 					img2pdf -o "$pdffile" "$temp"/*.*
 				fi
-				#rm -rf "$temp"
+				rm -rf "$temp"
 			fi
 			
 	done
