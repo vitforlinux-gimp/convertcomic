@@ -5,19 +5,18 @@
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-echo -e "\nConvertComic By vitforlinux.wordpress.com\n\nIf not works please install img2pdf unrar unzip tar 7zip-full\n"
+echo -e "\nConvertComic By vitforlinux.wordpress.com\n\nIf not works please install img2pdf rar unrar zip unzip tar 7zip-full\n"
 
 if [ $# -eq 0 ]
 then
-	echo "Please state the cbr/cbz files you want to convert to pdf"
+	echo "Please state the cbr cbz cbt cb7 or images folder files you want to convert to pdf cbz cb7 cbt cbr"
 else
 
 	for i in "$@"
 	do
 		file=$i
-		filetype=${i: -3}
+		filetype="${i##*.}"
 		filename=${file%.*}
-		pdffile="$filename.pdf"
 		temp="`mktemp -d`"
 		echo "$file"
 		if [[ "$filetype" == "cbr" ]] || [[ "$filetype" == "CBR" ]]
@@ -40,17 +39,55 @@ else
 		then
 			echo -e "\nExtract .cbz with ZIP\n"
 			unzip -q -j "$file" -d "$temp"
-		else echo -e "\nFile format not supported only .cbz .cbr .cbt cb7 and images folder\n" && rm -rf "$temp"
+		else echo -e "\nFile format not supported only .cbz .cbr .cbt .cb7 and images folder\n" && rm -rf "$temp"
 		fi
+	case "$option" in
+	"--cbz" | "-cbz" | "-z")
+			echo -e "\nMerge in CBZ\n"
+			if [[ ! -f "$filename".cbz ]]; then
+			zip -r "$filename".cbz "$temp"/*.*
+			else
+			zip -r "$filename"_1.cbz "$temp"/*.*
+			fi ;;
+
+	"--cb7" |"-cb7" | "-7")
+			echo -e "\nMerge in CB7\n"
+			if [[ ! -f "$filename".cb7 ]]; then
+			7z a "$filename".cb7 "$temp"/*.* 
+			else
+			7z a "$filename"_1.cb7 "$temp"/*.* 
+			fi ;;
+			
+	"--cbt" | "-cbt" | "-t")
+			echo -e "\nMerge in CBT\n"
+			if [[ ! -f "$filename".cbt ]]; then
+			tar cvf "$filename".cbt "$temp"/*.*
+			else
+			tar cvf "$filename"_1.cbt "$temp"/*.*
+			fi ;;
+			
+	"--cbr" | "-cbr" | "-r")
+			echo -e "\nMerge in CBR\n"
+			if [[ ! -f "$filename".cbr ]]; then
+			rar a  "$filename".cbr "$temp"/*.* 
+			else
+			rar a  "$filename"_1.cbr "$temp"/*.*
+			fi ;;
+
+        "--pdf" | "-pdf" | "-p" | * )
 			echo -e "\nMerge in PDF\n"
 			if [ -d "$temp" ]; then
 				rm -f "$temp"/*.xml
 				if [[ ! -z "$( ls -A "$temp" )" ]]; then
-					img2pdf -o "$pdffile" "$temp"/*.*
+					if [[ ! -f "$filename".pdf ]]; then
+					img2pdf -o "$filename".pdf "$temp"/*.*
+					else
+					img2pdf -o "$filename"_1.pdf "$temp"/*.*
+					fi
 				fi
-				rm -rf "$temp"
-			fi
-			
+			fi ;;
+	 esac
+rm -rf "$temp"
 	done
 fi
 exit 0
