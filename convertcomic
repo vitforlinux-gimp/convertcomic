@@ -10,6 +10,11 @@ echo -e "\nConvertComic By vitforlinux.wordpress.com\n\nIf not works please inst
 if [ $# -eq 0 ]
 then
 	echo "Please state the cbr cbz cbt cb7 or images folder files you want to convert to pdf cbz cb7 cbt cbr"
+			echo -e "--cbz, -cbz, -z to convert the file to CBZ\n"
+			echo -e "--cbr, -cbr, -r to convert the file to CBR\n"
+			echo -e "--cb7, -cb7, -7 to convert the file to CB7\n"
+			echo -e "--cbt, -cbt, -t to convert the file to CBT\n"
+			echo -e "--pdf, -pdf, -p or nothing to convert the file to PDF\n"
 else
 
 	for i in "$@"
@@ -42,6 +47,7 @@ else
 		else echo -e "\nFile format not supported only .cbz .cbr .cbt .cb7 and images folder\n" && rm -rf "$temp"
 		fi
 	case "$option" in
+
 	"--cbz" | "-cbz" | "-z")
 			echo -e "\nMerge in CBZ\n"
 			if [[ ! -f "$filename".cbz ]]; then
